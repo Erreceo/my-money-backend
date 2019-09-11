@@ -17,7 +17,7 @@ const login = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    User.findOne({email}), (err, user) => {
+    User.findOne({email}, (err, user) => {
         if (err){
             return sendErrorsFromDB(res, err);
         }else if (user && bcrypt.compareSync(password, user.password)){
@@ -29,7 +29,7 @@ const login = (req, res, next) => {
         }else{
             return res.status(400).send({ errors: ["Usuário/Senha inválidos"]});
         }
-    }
+    })
 }
 
 const validateToken = (req, res, next) => {
